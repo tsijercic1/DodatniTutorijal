@@ -27,53 +27,66 @@ public class StudentiController implements Initializable {
     }
 
     public void dodajAction() {
-        unbind();
         model.dodajStudenta(new Student());
-        model.postaviTrenutnog(model.getStudenti().size()-1);
-        bind();
+        listaStudenti.getSelectionModel().selectLast();
     }
 
     public void obrisiAction() {
-
+        model.izbrisiStudenta();
+        listaStudenti.getSelectionModel().clearSelection();
+        listaStudenti.refresh();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         listaStudenti.setItems(model.getStudenti());
-        listaStudenti.getSelectionModel()
-                .selectedIndexProperty()
-                .addListener(new ChangeListener<Number>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                        unbind();
-                        model.postaviTrenutnog(newValue.intValue());
-                        bind();
-                    }
-                });
+        listaStudenti.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Student>() {
+            @Override
+            public void changed(ObservableValue<? extends Student> observable, Student oldValue, Student newValue) {
+                model.setTrenutniStudent(newValue);
+                listaStudenti.refresh();
+            }
+        });
+
+        model.trenutniStudentProperty().addListener(new ChangeListener<Student>() {
+            @Override
+            public void changed(ObservableValue<? extends Student> observable, Student oldValue, Student newValue) {
+                if (oldValue != null) {
+                    unbind(oldValue);
+                }
+                if (newValue == null) {
+                    imeField.setText("");
+                    prezimeField.setText("");
+                    indexField.setText("");
+                    datePicker.getEditor().setText("");
+                }else{
+                    bind(newValue);
+                }
+            }
+        });
 
     }
 
-    private void unbind() {
-        if(model.getTrenutniStudent()!=null) {
-            imeField.textProperty()
-                    .unbindBidirectional(model.getTrenutniStudent().imeProperty());
-            prezimeField.textProperty()
-                    .unbindBidirectional(model.getTrenutniStudent().prezimeProperty());
-            indexField.textProperty()
-                    .unbindBidirectional(model.getTrenutniStudent().indexProperty());
-            datePicker.valueProperty()
-                    .unbindBidirectional(model.getTrenutniStudent().datumRodjenjaProperty());
-        }
-    }
-
-    private void bind() {
+    private void bind(Student value) {
         imeField.textProperty()
-                .bindBidirectional(model.getTrenutniStudent().imeProperty());
+                .bindBidirectional(value.imeProperty());
         prezimeField.textProperty()
-                .bindBidirectional(model.getTrenutniStudent().prezimeProperty());
+                .bindBidirectional(value.prezimeProperty());
         indexField.textProperty()
-                .bindBidirectional(model.getTrenutniStudent().indexProperty());
+                .bindBidirectional(value.indexProperty());
         datePicker.valueProperty()
-                .bindBidirectional(model.getTrenutniStudent().datumRodjenjaProperty());
+                .bindBidirectional(value.datumRodjenjaProperty());
     }
+
+    private void unbind(Student value) {
+        imeField.textProperty()
+                .unbindBidirectional(value.imeProperty());
+        prezimeField.textProperty()
+                .unbindBidirectional(value.prezimeProperty());
+        indexField.textProperty()
+                .unbindBidirectional(value.indexProperty());
+        datePicker.valueProperty()
+                .unbindBidirectional(value.datumRodjenjaProperty());
+    }
+
 }

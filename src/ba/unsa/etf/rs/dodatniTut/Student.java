@@ -74,4 +74,20 @@ public class Student {
     public String toString() {
         return getIme() + " " + getPrezime();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student)) return false;
+
+        Student student = (Student) o;
+
+        if (getIme() != null ? !getIme().equals(student.getIme()) : student.getIme() != null) return false;
+        if (getPrezime() != null ? !getPrezime().equals(student.getPrezime()) : student.getPrezime() != null)
+            return false;
+        if (getIndex() != null ? !getIndex().equals(student.getIndex()) : student.getIndex() != null) return false;
+        return getDatumRodjenja() != null ? getDatumRodjenja().equals(student.getDatumRodjenja()) : student.getDatumRodjenja() == null;
+    }
+
+
 }
