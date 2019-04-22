@@ -9,14 +9,13 @@ import java.time.format.DateTimeFormatter;
 
 public class Student {
 
-    private SimpleStringProperty ime=new SimpleStringProperty(),prezime=new SimpleStringProperty();
-    private SimpleIntegerProperty index=new SimpleIntegerProperty();
+    private SimpleStringProperty ime=new SimpleStringProperty(""),prezime=new SimpleStringProperty("");
+    private SimpleStringProperty index= new SimpleStringProperty("");
     private SimpleObjectProperty<LocalDate> datumRodjenja =new SimpleObjectProperty<>();
 
-    public Student() {
-    }
+    public Student() { }
 
-    public Student(String ime, String prezime,Integer index,LocalDate datumRodjenja) {
+    public Student(String ime, String prezime,String index,LocalDate datumRodjenja) {
         this.ime.set(ime);
         this.prezime.set(prezime);
         this.index.set(index);
@@ -47,15 +46,15 @@ public class Student {
         this.prezime.set(prezime);
     }
 
-    public int getIndex() {
+    public String getIndex() {
         return index.get();
     }
 
-    public SimpleIntegerProperty indexProperty() {
+    public SimpleStringProperty indexProperty() {
         return index;
     }
 
-    public void setIndex(int index) {
+    public void setIndex(String index) {
         this.index.set(index);
     }
 
@@ -73,7 +72,6 @@ public class Student {
 
     @Override
     public String toString() {
-        return getIme() + " " + getPrezime() + " (" + getIndex() + ")" + " - " +
-                getDatumRodjenja().format(DateTimeFormatter.ofPattern("dd. M. yyyy"));
+        return getIme() + " " + getPrezime();
     }
 }

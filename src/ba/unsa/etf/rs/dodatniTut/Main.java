@@ -12,17 +12,23 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        StudentiModel model = new StudentiModel();
+        StudentiController controller = new StudentiController(model);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        loader.setController(controller);
+
+        Parent root = loader.load();
+        primaryStage.setTitle("Studenti");
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
+        primaryStage.toFront();
     }
 
 
     public static void main(String[] args) {
         Student a = new Student("meho",
-                "mehic", 18000, LocalDate.now());
+                "mehic", "18000", LocalDate.now());
         System.out.println(a);
-//        launch(args);
+        launch(args);
     }
 }

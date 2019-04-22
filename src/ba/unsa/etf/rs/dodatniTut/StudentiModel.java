@@ -16,11 +16,11 @@ public class StudentiModel {
     }
 
     private void napuni() {
-        studenti.add(new Student("Meho","Mehić",18252,
+        studenti.add(new Student("Meho","Mehić","18252",
                 LocalDate.now()));
-        studenti.add(new Student("Šemso","Šemsić",18253,
+        studenti.add(new Student("Šemso","Šemsić","18253",
                 LocalDate.now().minusMonths(3)));
-        trenutniStudent.set(studenti.get(0));
+        trenutniStudent.set(null);
     }
 
     void dodajStudenta(Student student) {
