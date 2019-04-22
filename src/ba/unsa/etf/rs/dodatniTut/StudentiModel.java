@@ -42,4 +42,23 @@ public class StudentiModel {
         trenutniStudent.set(studenti.get(i));
     }
 
+    public ObservableList<Student> getStudenti() {
+        return studenti;
+    }
+
+    public void setStudenti(ObservableList<Student> studenti) {
+        this.studenti = studenti;
+    }
+
+    public Student getTrenutniStudent() {
+        return trenutniStudent.get();
+    }
+
+    public SimpleObjectProperty<Student> trenutniStudentProperty() {
+        return trenutniStudent;
+    }
+
+    public void setTrenutniStudent(Student trenutniStudent) {
+        this.trenutniStudent.set(trenutniStudent);
+    }
 }
