@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Student {
+
     private SimpleStringProperty ime=new SimpleStringProperty(),prezime=new SimpleStringProperty();
     private SimpleIntegerProperty index=new SimpleIntegerProperty();
     private SimpleObjectProperty<LocalDate> datumRodjenja =new SimpleObjectProperty<>();
